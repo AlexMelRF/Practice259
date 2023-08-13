@@ -1,0 +1,9 @@
+*.bak
+temp/
+*.txt
+*.img
+*.md
+!readme.md
+logs/
+
+
