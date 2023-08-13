@@ -6,11 +6,14 @@ class Route {
 		$controller_name = 'login';
 		$action_name = 'index';
 		$routes = $_GET['url'];
-		if (!empty($routes))
+		if (!empty($routes)) {
             //user get login page if he is not logged
-            if (($_SESSION['auth'] & ($routes == 'register' || $routes == 'login')))
-                $routes = 'login';       
-		$controller_name = $routes;
+            if (!$_SESSION['auth'] & $routes == '') 
+                $routes = 'login';  
+			if ($_SESSION['auth'] & ($routes == 'login' || $routes == 'register'))
+				$routes = 'gallery';	
+			$controller_name = $routes;
+		}
 		$model_name = 'model_'.$controller_name;
 		$controller_name = 'controller_'.$controller_name;
 		$action_name = 'action_'.$action_name;

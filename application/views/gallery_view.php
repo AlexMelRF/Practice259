@@ -1,4 +1,5 @@
 <?php
+
 require 'config.php';
 require 'file.php';
 
@@ -110,7 +111,6 @@ $files = array_filter($files, function ($file) {
                                  alt="<?php echo $file; ?>">
                         </a>
                     </div>
- 
                 <?php endforeach; ?>
             </div><!-- /.row -->
         <?php else: ?>
@@ -144,7 +144,7 @@ if ($_SESSION['auth']) {
     ?> 
         <a class="nav-link" href="index.php?url=login">Login</a>
     <?php
-        }
+    }
     ?>    
 
 <!-- Optional JavaScript -->
@@ -169,5 +169,5 @@ if ($_SESSION['auth']) {
 
 <?php
 ////////////////////////////////////////////////////////////////////////
-    echo $_SESSION['auth'] ? "auth" : "no auth";
+    echo $_SESSION['auth'] ? "auth" : "no auth"." ".$_GET['url'];
 ?>

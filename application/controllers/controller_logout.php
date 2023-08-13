@@ -5,8 +5,9 @@ class Controller_Logout extends Controller {
 		session_start();
 		$_SESSION = [];
 		session_destroy();
-		$this -> view -> generate('login_view.php', 'template_view.php');
+		//$this -> view -> generate('login_view.php', 'template_view.php');
 		$_GET['url'] = 'login';
+		Route::start();
 	}
 }
 

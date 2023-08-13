@@ -1,17 +1,20 @@
-#main_div {
-    display: flex;
-    justify-content: center;
+body {
     font-family: 'Share Tech Mono', monospace;
     color: rgb(44, 6, 6);
-    margin: 10px;
-    padding: 10px;
+    margin: 0;
+    padding: 0;
 }
 
-ul {
-    list-style: none;
-}
-
-li {
+#wrapper {
     display: flex;
     justify-content: center;
+}
+
+#form {
+    padding-top: 100px;
+    position: absolute;
+}
+
+#in_form {
+    width: 350px;
 }

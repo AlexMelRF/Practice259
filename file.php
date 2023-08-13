@@ -33,9 +33,7 @@ if(!empty($_POST['comment'])) {
 }
 
 // Получаем список комментов
-$comments = file_exists($commentFilePath)
-    ? file($commentFilePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES)
-    : [];
+$comments = file_exists($commentFilePath) ? file($commentFilePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) : [];
 
 ?>
 <!doctype html>
@@ -48,7 +46,6 @@ $comments = file_exists($commentFilePath)
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
     <title>Галерея изображений | Файл <?php echo $imageFileName; ?></title>
 </head>
 <body>
