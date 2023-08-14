@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+$_SESSION['auth'] = false;
 class Route {
 	public static function start() {
 		$controller_name = 'login';
