@@ -14,13 +14,7 @@
         <label for="exampleInputPassword1" class="form-label">Password</label>
         <input name="password" type="password" class="form-control" id="exampleInputPassword1" required>
       </div>
-      <input name="submit" type="submit" value="Submit" class="btn btn-primary">
+      <input name="submit" type="submit" value="Register" class="btn btn-primary">
     </form>
   </div>
 </div>
-
-
-<?php
-////////////////////////////////////////////////////////////
-echo $_SESSION['auth'] ? "auth" : "no auth"." ".$_GET['url'];
-?>

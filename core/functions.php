@@ -12,7 +12,7 @@ function generateCode($length=5) {
     return $code;
 } 
 // connect to db
-$link=mysqli_connect("localhost", "root", "", "users"); 
+$link=mysqli_connect("127.0.0.1", "root", "", "users"); 
 // if login
 if (isset($_POST['submit']) & ($_GET['url'] == 'login' || $_GET['url'] == '')) {
     $query = mysqli_query($link,"SELECT user_id, user_password FROM users WHERE user_login='".mysqli_real_escape_string($link,$_POST['login'])."' LIMIT 1");

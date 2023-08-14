@@ -1,63 +1,45 @@
 <?php
 
-require 'config.php';
-require 'file.php';
+require 'core/config.php';
 
 $errors = [];
 $messages = [];
-
 // Если файл был отправлен
 if (!empty($_FILES)) {
-
     // Проходим в цикле по файлам
     for ($i = 0; $i < count($_FILES['files']['name']); $i++) {
-
         $fileName = $_FILES['files']['name'][$i];
-
         // Проверяем размер
         if ($_FILES['files']['size'][$i] > UPLOAD_MAX_SIZE) {
-            $errors[] = 'Недопостимый размер файла ' . $fileName;
+            $errors[] = 'Недопустимый размер файла ' . $fileName;
             continue;
         }
-
         // Проверяем формат
         if (!in_array($_FILES['files']['type'][$i], ALLOWED_TYPES)) {
             $errors[] = 'Недопустимый формат файла ' . $fileName;
             continue;
         }
-
         $filePath = UPLOAD_DIR . '/' . basename($fileName);
-
         // Пытаемся загрузить файл
         if (!move_uploaded_file($_FILES['files']['tmp_name'][$i], $filePath)) {
             $errors[] = 'Ошибка загрузки файла ' . $fileName;
             continue;
         }
     }
-
-    if (empty($errors)) {
+    if (empty($errors)) 
         $messages[] = 'Файлы были загружены';
-    }
-
 }
-
 // Если файл был удален
 if (!empty($_POST['name'])) {
-
     $filePath = UPLOAD_DIR . '/' . $_POST['name'];
     $commentPath = COMMENT_DIR . '/' . $_POST['name'] . '.txt';
-
     // Удаляем изображение
     unlink($filePath);
-
     // Удаляем файл комментариев, если он существует
-    if(file_exists($commentPath)) {
+    if (file_exists($commentPath)) 
         unlink($commentPath);
-    }
-
     $messages[] = 'Файл был удален';
 }
-
 // Получаем список файлов, исключаем системные
 $files = scandir(UPLOAD_DIR);
 $files = array_filter($files, function ($file) {
@@ -65,40 +47,30 @@ $files = array_filter($files, function ($file) {
 });
 
 ?>
+
 <!doctype html>
 <html lang="en">
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
     <title>Галерея изображений | Список файлов</title>
 </head>
 <body>
 <div class="container pt-4">
     <h1 class="mb-4"><a href="<?php echo URL; ?>">Галерея изображений</a></h1>
-
-    <!-- Вывод сообщений об успехе/ошибке -->
     <?php foreach ($errors as $error): ?>
         <div class="alert alert-danger"><?php echo $error; ?></div>
     <?php endforeach; ?>
-
     <?php foreach ($messages as $message): ?>
         <div class="alert alert-success"><?php echo $message; ?></div>
     <?php endforeach; ?>
-
     <h2>Список файлов</h2>
-
-    <!-- Вывод изображений -->
     <div class="mb-4">
         <?php if (!empty($files)): ?>
             <div class="row">
                 <?php foreach ($files as $file): ?>
-
                     <div class="col-12 col-sm-3 mb-4">
                         <form method="post">
                             <input type="hidden" name="name" value="<?php echo $file; ?>">
@@ -112,14 +84,11 @@ $files = array_filter($files, function ($file) {
                         </a>
                     </div>
                 <?php endforeach; ?>
-            </div><!-- /.row -->
+            </div>
         <?php else: ?>
             <div class="alert alert-secondary">Нет загруженных изображений</div>
         <?php endif; ?>
     </div>
-
-
-    <!-- Форма загрузки файлов -->
     <form method="post" enctype="multipart/form-data">
         <div class="custom-file">
             <input type="file" class="custom-file-input" name="files[]" id="customFile" multiple required>
@@ -132,7 +101,7 @@ $files = array_filter($files, function ($file) {
         <hr>
         <button type="submit" class="btn btn-primary">Загрузить</button>
     </form>
-</div><!-- /.container -->
+</div>
 
 <?php
 
@@ -146,9 +115,6 @@ if ($_SESSION['auth']) {
     <?php
     }
     ?>    
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
@@ -166,8 +132,3 @@ if ($_SESSION['auth']) {
 </script>
 </body>
 </html>
-
-<?php
-////////////////////////////////////////////////////////////////////////
-    echo $_SESSION['auth'] ? "auth" : "no auth"." ".$_GET['url'];
-?>
